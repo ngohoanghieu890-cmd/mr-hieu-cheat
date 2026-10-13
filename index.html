@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MR HIEU x CHEAT - Cổng Link Bio & Tải Xuống</title>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --accent-glow: rgba(59, 130, 246, 0.4);
+            --text-main: #f3f4f6;
+            --text-sub: #9ca3af;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 20px 15px; }
+        .container { width: 100%; max-width: 480px; display: flex; flex-direction: column; align-items: center; }
+        
+        /* Header Profile */
+        .profile-img { width: 90px; height: 90px; border-radius: 50%; border: 2px solid #3b82f6; object-fit: cover; margin-bottom: 12px; box-shadow: 0 0 20px var(--accent-glow); }
+        .profile-name { font-size: 20px; font-weight: 700; display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+        .verified-badge { color: #3b82f6; font-size: 16px; }
+        .profile-bio { font-size: 13px; color: var(--text-sub); text-align: center; margin-bottom: 12px; }
+        
+        /* Status Badge */
+        .status-badge { display: flex; align-items: center; gap: 6px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); padding: 5px 12px; border-radius: 20px; font-size: 12px; color: #34d399; margin-bottom: 20px; }
+        .status-dot { width: 7px; height: 7px; background-color: #34d399; border-radius: 50%; box-shadow: 0 0 8px #34d399; }
+
+        /* Search Box */
+        .search-box { width: 100%; background: var(--card-bg); border: 1px solid var(--border-color); padding: 12px 16px; border-radius: 12px; color: var(--text-main); font-size: 13px; outline: none; margin-bottom: 25px; text-align: center; backdrop-filter: blur(10px); }
+        .search-box::placeholder { color: #6b7280; }
+
+        /* Section Titles */
+        .section-title { width: 100%; font-size: 12px; font-weight: 600; text-transform: uppercase; color: var(--text-sub); letter-spacing: 0.5px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+
+        /* Card Links */
+        .link-card { width: 100%; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px; padding: 14px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; text-decoration: none; color: inherit; backdrop-filter: blur(10px); transition: 0.2s; }
+        .link-card:active { transform: scale(0.98); background: rgba(31, 41, 55, 0.9); }
+        .link-left { display: flex; align-items: center; gap: 12px; overflow: hidden; }
+        .link-icon { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+        .icon-red { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+        .icon-green { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+        .icon-blue { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+        .link-info { display: flex; flex-direction: column; overflow: hidden; }
+        .link-title { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .link-desc { font-size: 11px; color: var(--text-sub); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+        .link-actions { display: flex; gap: 8px; }
+        .action-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); color: var(--text-main); width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; cursor: pointer; }
+        
+        /* Admin Button & Modal */
+        .admin-trigger { position: fixed; bottom: 15px; right: 15px; background: #3b82f6; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5); font-size: 18px; cursor: pointer; z-index: 99; border: none; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 100; justify-content: center; align-items: center; padding: 20px; }
+        .modal-content { background: #1f2937; width: 100%; max-width: 400px; padding: 20px; border-radius: 16px; border: 1px solid var(--border-color); max-height: 90vh; overflow-y: auto; }
+        .modal-content h3 { font-size: 16px; margin-bottom: 15px; color: #fff; text-align: center; }
+        .modal-content input, .modal-content textarea { width: 100%; background: #111827; border: 1px solid var(--border-color); padding: 10px; border-radius: 8px; color: #fff; font-size: 12px; margin-bottom: 10px; }
+        .modal-content label { font-size: 11px; color: var(--text-sub); display: block; margin-bottom: 4px; }
+        .modal-btn { width: 100%; background: #3b82f6; color: white; border: none; padding: 10px; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 5px; }
+        .footer { margin-top: 30px; font-size: 11px; color: #6b7280; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Avatar & Profile -->
+        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150" alt="Avatar" class="profile-img" id="viewAvatar">
+        <h1 class="profile-name">
+            <span id="viewName">MR HIEU x CHEAT</span>
+            <span class="verified-badge">✔</span>
+        </h1>
+        <p class="profile-bio" id="viewBio">⚡ Cổng Tải Hack Miễn Phí & Hệ Thống Lấy Key Tự Động ⚡</p>
+
+        <div class="status-badge">
+            <div class="status-dot"></div>
+            <span id="viewStatus">Hệ thống đang hoạt động bình thường</span>
+        </div>
+
+        <input type="text" class="search-box" placeholder="🔍 Tìm kiếm nhanh link (tải hack, key 24h, telegram, zalo...)" id="searchInput">
+
+        <!-- Danh sách liên kết động -->
+        <div class="section-title">🚀 Tải Xuống Ứng Dụng</div>
+        <div id="linkContainer" style="width: 100%;"></div>
+    </div>
+
+    <!-- Nút mở bảng chỉnh sửa nhanh dành riêng cho bạn -->
+    <button class="admin-trigger" onclick="toggleAdmin()">⚙️</button>
+
+    <!-- Bảng chỉnh sửa thông tin -->
+    <div class="modal" id="adminModal">
+        <div class="modal-content">
+            <h3>⚙️ Bảng Thay Đổi Nhanh</h3>
+            <label>Tên Tiêu Đề</label>
+            <input type="text" id="inputName" value="MR HIEU x CHEAT">
+            <label>Link Ảnh Đại Diện (Avatar URL)</label>
+            <input type="text" id="inputAvatar" value="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150">
+            <label>Mô Tả</label>
+            <input type="text" id="inputBio" value="⚡ Cổng Tải Hack Miễn Phí & Hệ Thống Lấy Key Tự Động ⚡">
+            
+            <label style="margin-top: 10px; color: #3b82f6; font-weight: bold;">Danh sách liên kết (JSON Data):</label>
+            <textarea id="inputLinks" rows="8"></textarea>
+            
+            <button class="modal-btn" onclick="saveConfig()">Lưu Thay Đổi</button>
+            <button class="modal-btn" style="background:#ef4444; margin-top:8px;" onclick="toggleAdmin()">Đóng</button>
+        </div>
+    </div>
+
+    <div class="footer">© 2026 MR HIEU x CHEAT. All rights reserved.</div>
+
+    <script>
+        let defaultLinks = [
+            { title: "LINK TẢI HACK MIỄN PHÍ", desc: "Tải xuống trực tiếp bản update mới nhất không giới hạn", url: "#", icon: "📥", type: "red" },
+            { title: "LINK LẤY KEY CHÍNH (1 LINK 24H)", desc: "1 link vượt siêu nhanh - Sử dụng liên tục 24 tiếng", url: "#", icon: "🔑", type: "green" },
+            { title: "LINK LẤY KEY PHỤ (1 LINK 6H)", desc: "Link dự phòng - Sử dụng liên tục 6 tiếng khi key chính bảo trì", url: "#", icon: "🔑", type: "red" },
+            { title: "Kênh Telegram Chính Thức", desc: "Nhận thông báo cập nhật mới nhất và file tải nhanh", url: "#", icon: "📢", type: "blue" },
+            { title: "Máy Chủ Discord Giao Lưu", desc: "Server thảo luận, chia sẻ kinh nghiệm & hỗ trợ 24/7", url: "#", icon: "💬", type: "blue" },
+            { title: "Nhóm Zalo Cộng Đồng", desc: "Tham gia box chat Zalo kết nối anh em game thủ", url: "#", icon: "💬", type: "blue" }
+        ];
+
+        let siteData = JSON.parse(localStorage.getItem('hieu_cheat_config')) || {
+            name: "MR HIEU x CHEAT",
+            avatar: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150",
+            bio: "⚡ Cổng Tải Hack Miễn Phí & Hệ Thống Lấy Key Tự Động ⚡",
+            links: defaultLinks
+        };
+
+        function renderPage() {
+            document.getElementById('viewName').innerText = siteData.name;
+            document.getElementById('viewAvatar').src = siteData.avatar;
+            document.getElementById('viewBio').innerText = siteData.bio;
+            
+            let html = '';
+            siteData.links.forEach((item, index) => {
+                let iconClass = item.type === 'red' ? 'icon-red' : (item.type === 'green' ? 'icon-green' : 'icon-blue');
+                html += `
+                <a href="${item.url}" target="_blank" class="link-card">
+                    <div class="link-left">
+                        <div class="link-icon ${iconClass}">${item.icon}</div>
+                        <div class="link-info">
+                            <span class="link-title">${item.title}</span>
+                            <span class="link-desc">${item.desc}</span>
+                        </div>
+                    </div>
+                    <div class="link-actions" onclick="event.preventDefault();">
+                        <button class="action-btn" onclick="copyLink('${item.url}')" title="Sao chép link">📋</button>
+                    </div>
+                </a>`;
+            });
+            document.getElementById('linkContainer').innerHTML = html;
+
+            document.getElementById('inputName').value = siteData.name;
+            document.getElementById('inputAvatar').value = siteData.avatar;
+            document.getElementById('inputBio').value = siteData.bio;
+            document.getElementById('inputLinks').value = JSON.stringify(siteData.links, null, 2);
+        }
+
+        function toggleAdmin() {
+            let modal = document.getElementById('adminModal');
+            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function saveConfig() {
+            try {
+                siteData.name = document.getElementById('inputName').value;
+                siteData.avatar = document.getElementById('inputAvatar').value;
+                siteData.bio = document.getElementById('inputBio').value;
+                siteData.links = JSON.parse(document.getElementById('inputLinks').value);
+                
+                localStorage.setItem('hieu_cheat_config', JSON.stringify(siteData));
+                renderPage();
+                toggleAdmin();
+                alert("Đã lưu thay đổi thành công!");
+            } catch (e) {
+                alert("Lỗi định dạng JSON! Vui lòng kiểm tra lại dấu ngoặc vuông [] hoặc dấu phẩy.");
+            }
+        }
+
+        function copyLink(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert("Đã sao chép đường dẫn thành công!");
+            });
+        }
+
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            let keyword = e.target.value.toLowerCase();
+            let cards = document.querySelectorAll('.link-card');
+            cards.forEach(card => {
+                let text = card.innerText.toLowerCase();
+                card.style.display = text.includes(keyword) ? 'flex' : 'none';
+            });
+        });
+
+        renderPage();
+    </script>
+</body>
+</html>
