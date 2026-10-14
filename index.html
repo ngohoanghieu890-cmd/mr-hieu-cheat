@@ -3,194 +3,405 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MR HIEU x CHEAT - Cổng Link Bio & Tải Xuống</title>
+    <title>MR HIEU x CHEAT - Cổng Link Bio & Tải Xuống Chính Thức</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --bg-color: #0b0f19;
-            --card-bg: rgba(17, 24, 39, 0.7);
-            --border-color: rgba(255, 255, 255, 0.08);
-            --accent-glow: rgba(59, 130, 246, 0.4);
-            --text-main: #f3f4f6;
-            --text-sub: #9ca3af;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 20px 15px; }
-        .container { width: 100%; max-width: 480px; display: flex; flex-direction: column; align-items: center; }
-        
-        /* Header Profile */
-        .profile-img { width: 90px; height: 90px; border-radius: 50%; border: 2px solid #3b82f6; object-fit: cover; margin-bottom: 12px; box-shadow: 0 0 20px var(--accent-glow); }
-        .profile-name { font-size: 20px; font-weight: 700; display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
-        .verified-badge { color: #3b82f6; font-size: 16px; }
-        .profile-bio { font-size: 13px; color: var(--text-sub); text-align: center; margin-bottom: 12px; }
-        
-        /* Status Badge */
-        .status-badge { display: flex; align-items: center; gap: 6px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); padding: 5px 12px; border-radius: 20px; font-size: 12px; color: #34d399; margin-bottom: 20px; }
-        .status-dot { width: 7px; height: 7px; background-color: #34d399; border-radius: 50%; box-shadow: 0 0 8px #34d399; }
 
-        /* Search Box */
-        .search-box { width: 100%; background: var(--card-bg); border: 1px solid var(--border-color); padding: 12px 16px; border-radius: 12px; color: var(--text-main); font-size: 13px; outline: none; margin-bottom: 25px; text-align: center; backdrop-filter: blur(10px); }
-        .search-box::placeholder { color: #6b7280; }
+        body {
+            background-color: #0b0f19;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 15px;
+        }
 
-        /* Section Titles */
-        .section-title { width: 100%; font-size: 12px; font-weight: 600; text-transform: uppercase; color: var(--text-sub); letter-spacing: 0.5px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+        .container {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-        /* Card Links */
-        .link-card { width: 100%; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px; padding: 14px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; text-decoration: none; color: inherit; backdrop-filter: blur(10px); transition: 0.2s; }
-        .link-card:active { transform: scale(0.98); background: rgba(31, 41, 55, 0.9); }
-        .link-left { display: flex; align-items: center; gap: 12px; overflow: hidden; }
-        .link-icon { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-        .icon-red { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
-        .icon-green { background: rgba(16, 185, 129, 0.15); color: #10b981; }
-        .icon-blue { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
-        .link-info { display: flex; flex-direction: column; overflow: hidden; }
-        .link-title { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .link-desc { font-size: 11px; color: var(--text-sub); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
-        .link-actions { display: flex; gap: 8px; }
-        .action-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); color: var(--text-main); width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; cursor: pointer; }
-        
-        /* Admin Button & Modal */
-        .admin-trigger { position: fixed; bottom: 15px; right: 15px; background: #3b82f6; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5); font-size: 18px; cursor: pointer; z-index: 99; border: none; }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 100; justify-content: center; align-items: center; padding: 20px; }
-        .modal-content { background: #1f2937; width: 100%; max-width: 400px; padding: 20px; border-radius: 16px; border: 1px solid var(--border-color); max-height: 90vh; overflow-y: auto; }
-        .modal-content h3 { font-size: 16px; margin-bottom: 15px; color: #fff; text-align: center; }
-        .modal-content input, .modal-content textarea { width: 100%; background: #111827; border: 1px solid var(--border-color); padding: 10px; border-radius: 8px; color: #fff; font-size: 12px; margin-bottom: 10px; }
-        .modal-content label { font-size: 11px; color: var(--text-sub); display: block; margin-bottom: 4px; }
-        .modal-btn { width: 100%; background: #3b82f6; color: white; border: none; padding: 10px; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 5px; }
-        .footer { margin-top: 30px; font-size: 11px; color: #6b7280; text-align: center; }
+        /* Profile Header */
+        .profile {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 15px auto;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ff0055;
+            box-shadow: 0 0 15px rgba(255, 0, 85, 0.5);
+        }
+
+        .verified-badge {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background: #1da1f2;
+            color: #fff;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            border: 2px solid #0b0f19;
+        }
+
+        .title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: #a0aec0;
+            margin-bottom: 12px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #10b981;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #10b981;
+        }
+
+        /* Announcement Alert */
+        .alert-box {
+            width: 100%;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #fca5a5;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Section Title */
+        .section-header {
+            width: 100%;
+            margin: 15px 0 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .section-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-desc {
+            font-size: 11px;
+            color: #718096;
+        }
+
+        /* Link Cards */
+        .link-card {
+            width: 100%;
+            background: #161e2e;
+            border: 1px solid #2d3748;
+            border-radius: 14px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-decoration: none;
+            color: white;
+            transition: all 0.2s ease;
+        }
+
+        .link-card:hover {
+            transform: translateY(-2px);
+            border-color: #4a5568;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .link-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .icon-box {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .type-red .icon-box { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+        .type-green .icon-box { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+        .type-blue .icon-box { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+        .type-purple .icon-box { background: rgba(168, 85, 247, 0.15); color: #a855f7; }
+
+        .link-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .link-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 2px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .badge-tag {
+            font-size: 9px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .bg-red { background: #ef4444; color: white; }
+        .bg-green { background: #10b981; color: white; }
+        .bg-blue { background: #2563eb; color: white; }
+
+        .link-desc {
+            font-size: 11px;
+            color: #a0aec0;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: #2d3748;
+            color: #a0aec0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+
+        .btn-icon:hover {
+            background: #4a5568;
+            color: white;
+        }
+
+        /* Search Bar */
+        .search-box {
+            width: 100%;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            background: #161e2e;
+            border: 1px solid #2d3748;
+            padding: 10px 15px 10px 38px;
+            border-radius: 10px;
+            color: white;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #718096;
+            font-size: 13px;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- Avatar & Profile -->
-        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150" alt="Avatar" class="profile-img" id="viewAvatar">
-        <h1 class="profile-name">
-            <span id="viewName">MR HIEU x CHEAT</span>
-            <span class="verified-badge">✔</span>
-        </h1>
-        <p class="profile-bio" id="viewBio">⚡ Cổng Tải Hack Miễn Phí & Hệ Thống Lấy Key Tự Động ⚡</p>
-
-        <div class="status-badge">
-            <div class="status-dot"></div>
-            <span id="viewStatus">Hệ thống đang hoạt động bình thường</span>
+        <!-- Profile Header với Avatar ngầu đã cập nhật link chuẩn -->
+        <div class="profile">
+            <div class="avatar-container">
+                <img id="avatar-img" class="avatar" src="https://raw.githubusercontent.com/ngohoanghieu890-cmd/mr-hieu-cheat/main/IMG_20261013_074249.jpg" alt="MR HIEU x CHEAT Avatar">
+                <div class="verified-badge"><i class="fas fa-check"></i></div>
+            </div>
+            <h1 class="title" id="site-title">MR HIEU x CHEAT</h1>
+            <p class="subtitle" id="site-desc">⚡ Cổng Tải Hack Miễn Phí - all menu ios - adr ⚡</p>
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                <span>Hệ thống đang hoạt động bình thường</span>
+            </div>
         </div>
 
-        <input type="text" class="search-box" placeholder="🔍 Tìm kiếm nhanh link (tải hack, key 24h, telegram, zalo...)" id="searchInput">
-
-        <!-- Danh sách liên kết động -->
-        <div class="section-title">🚀 Tải Xuống Ứng Dụng</div>
-        <div id="linkContainer" style="width: 100%;"></div>
-    </div>
-
-    <!-- Nút mở bảng chỉnh sửa nhanh dành riêng cho bạn -->
-    <button class="admin-trigger" onclick="toggleAdmin()">⚙️</button>
-
-    <!-- Bảng chỉnh sửa thông tin -->
-    <div class="modal" id="adminModal">
-        <div class="modal-content">
-            <h3>⚙️ Bảng Thay Đổi Nhanh</h3>
-            <label>Tên Tiêu Đề</label>
-            <input type="text" id="inputName" value="MR HIEU x CHEAT">
-            <label>Link Ảnh Đại Diện (Avatar URL)</label>
-            <input type="text" id="inputAvatar" value="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150">
-            <label>Mô Tả</label>
-            <input type="text" id="inputBio" value="⚡ Cổng Tải Hack Miễn Phí & Hệ Thống Lấy Key Tự Động ⚡">
-            
-            <label style="margin-top: 10px; color: #3b82f6; font-weight: bold;">Danh sách liên kết (JSON Data):</label>
-            <textarea id="inputLinks" rows="8"></textarea>
-            
-            <button class="modal-btn" onclick="saveConfig()">Lưu Thay Đổi</button>
-            <button class="modal-btn" style="background:#ef4444; margin-top:8px;" onclick="toggleAdmin()">Đóng</button>
+        <!-- Notification -->
+        <div class="alert-box">
+            <i class="fas fa-bell"></i>
+            <span>🔔 <strong>Lưu ý:</strong> Vui lòng đọc kỹ hướng dẫn và chọn đúng liên kết kênh cộng đồng để tham gia.</span>
         </div>
-    </div>
 
-    <div class="footer">© 2026 MR HIEU x CHEAT. All rights reserved.</div>
+        <!-- Search Bar -->
+        <div class="search-box">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-input" placeholder="Tìm kiếm nhanh link (zalo, telegram, tiktok...)...">
+        </div>
+
+        <!-- Dynamic Link List -->
+        <div id="link-list" style="width: 100%;"></div>
+    </div>
 
     <script>
-        let defaultLinks = [
-            { title: "LINK TẢI HACK MIỄN PHÍ", desc: "Tải xuống trực tiếp bản update mới nhất không giới hạn", url: "#", icon: "📥", type: "red" },
-            { title: "LINK LẤY KEY CHÍNH (1 LINK 24H)", desc: "1 link vượt siêu nhanh - Sử dụng liên tục 24 tiếng", url: "#", icon: "🔑", type: "green" },
-            { title: "LINK LẤY KEY PHỤ (1 LINK 6H)", desc: "Link dự phòng - Sử dụng liên tục 6 tiếng khi key chính bảo trì", url: "#", icon: "🔑", type: "red" },
-            { title: "Kênh Telegram Chính Thức", desc: "Nhận thông báo cập nhật mới nhất và file tải nhanh", url: "#", icon: "📢", type: "blue" },
-            { title: "Máy Chủ Discord Giao Lưu", desc: "Server thảo luận, chia sẻ kinh nghiệm & hỗ trợ 24/7", url: "#", icon: "💬", type: "blue" },
-            { title: "Nhóm Zalo Cộng Đồng", desc: "Tham gia box chat Zalo kết nối anh em game thủ", url: "#", icon: "💬", type: "blue" }
+        const defaultData = [
+            {
+                section: "DANH SÁCH KÊNH CỘNG ĐỒNG CHÍNH THỨC",
+                desc: "Tham gia để cập nhật thông tin mới nhất",
+                items: [
+                    {
+                        title: "🧬 nhóm zalo share menu",
+                        desc: "Tham gia box chat Zalo nhận menu mới nhất",
+                        url: "https://zalo.me/g/o4p6nz3evy3srwlwhd02",
+                        icon: "fa-comments",
+                        type: "blue",
+                        badge: "ZALO GROUP",
+                        badgeBg: "bg-blue"
+                    },
+                    {
+                        title: "🎁 nhóm Telegram chính...",
+                        desc: "Nhận thông báo cập nhật mới nhất và file tải nhanh",
+                        url: "https://t.me/mrhieu1234",
+                        icon: "fa-paper-plane",
+                        type: "blue",
+                        badge: "TELEGRAM",
+                        badgeBg: "bg-blue"
+                    },
+                    {
+                        title: "👑 Kênh Tik Tok Chính Thức ADM",
+                        desc: "Theo dõi kênh TikTok hỗ trợ & video hướng dẫn",
+                        url: "https://www.tiktok.com/@mr.hieusupport_108?_r=1&_t=ZS-9AXWgU0O1fZ",
+                        icon: "fa-video",
+                        type: "red",
+                        badge: "TIKTOK",
+                        badgeBg: "bg-red"
+                    }
+                ]
+            },
+            {
+                section: "💬 KÊNH CHAT GIAO LƯU VÀ HỌC HỎI KINH NGHIỆM & Giải Đáp Thắc mắc",
+                desc: "Kênh thảo luận và hỗ trợ thành viên 24/7",
+                items: [
+                    {
+                        title: "🌏 Kênh Chat Zalo",
+                        desc: "Hỏi đáp kinh nghiệm & giao lưu cùng anh em Zalo",
+                        url: "https://zalo.me/g/w0nrvjd4ayslkaxkpvrx",
+                        icon: "fa-comment-dots",
+                        type: "green",
+                        badge: "CHAT ZALO",
+                        badgeBg: "bg-green"
+                    },
+                    {
+                        title: "💎 Kênh Chat Telegram",
+                        desc: "Cộng đồng giao lưu thảo luận Telegram",
+                        url: "https://t.me/mrhieu111",
+                        icon: "fa-paper-plane",
+                        type: "purple",
+                        badge: "CHAT TELEGRAM",
+                        badgeBg: "bg-blue"
+                    }
+                ]
+            }
         ];
 
-        let siteData = JSON.parse(localStorage.getItem('hieu_cheat_config')) || {
-            name: " 👑 MR HIEU x CHEAT",
-            avatar: " https://raw.githubusercontent.com/ngohoanghieu890-cmd/mr-hieu-cheat/main/IMG_20261013_074249.jpg
-",
-            bio: "⚡ Cổng Tải Hack Miễn Phí & All menu adr - ios ⚡",
-            links: defaultLinks
-        };
+        function renderLinks() {
+            const container = document.getElementById('link-list');
+            container.innerHTML = '';
 
-        function renderPage() {
-            document.getElementById('viewName').innerText = siteData.name;
-            document.getElementById('viewAvatar').src = siteData.avatar;
-            document.getElementById('viewBio').innerText = siteData.bio;
-            
-            let html = '';
-            siteData.links.forEach((item, index) => {
-                let iconClass = item.type === 'red' ? 'icon-red' : (item.type === 'green' ? 'icon-green' : 'icon-blue');
-                html += `
-                <a href="${item.url}" target="_blank" class="link-card">
-                    <div class="link-left">
-                        <div class="link-icon ${iconClass}">${item.icon}</div>
-                        <div class="link-info">
-                            <span class="link-title">${item.title}</span>
-                            <span class="link-desc">${item.desc}</span>
-                        </div>
+            defaultData.forEach(group => {
+                const headerHtml = `
+                    <div class="section-header">
+                        <span class="section-title"><i class="fas fa-layer-group"></i> ${group.section}</span>
+                        <span class="section-desc">${group.desc}</span>
                     </div>
-                    <div class="link-actions" onclick="event.preventDefault();">
-                        <button class="action-btn" onclick="copyLink('${item.url}')" title="Sao chép link">📋</button>
-                    </div>
-                </a>`;
-            });
-            document.getElementById('linkContainer').innerHTML = html;
+                `;
+                container.innerHTML += headerHtml;
 
-            document.getElementById('inputName').value = siteData.name;
-            document.getElementById('inputAvatar').value = siteData.avatar;
-            document.getElementById('inputBio').value = siteData.bio;
-            document.getElementById('inputLinks').value = JSON.stringify(siteData.links, null, 2);
-        }
-
-        function toggleAdmin() {
-            let modal = document.getElementById('adminModal');
-            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
-        }
-
-        function saveConfig() {
-            try {
-                siteData.name = document.getElementById('inputName').value;
-                siteData.avatar = document.getElementById('inputAvatar').value;
-                siteData.bio = document.getElementById('inputBio').value;
-                siteData.links = JSON.parse(document.getElementById('inputLinks').value);
-                
-                localStorage.setItem('hieu_cheat_config', JSON.stringify(siteData));
-                renderPage();
-                toggleAdmin();
-                alert("Đã lưu thay đổi thành công!");
-            } catch (e) {
-                alert("Lỗi định dạng JSON! Vui lòng kiểm tra lại dấu ngoặc vuông [] hoặc dấu phẩy.");
-            }
-        }
-
-        function copyLink(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                alert("Đã sao chép đường dẫn thành công!");
+                group.items.forEach(item => {
+                    const itemHtml = `
+                        <a href="${item.url}" target="_blank" class="link-card type-${item.type}">
+                            <div class="link-left">
+                                <div class="icon-box">
+                                    <i class="fas ${item.icon}"></i>
+                                </div>
+                                <div class="link-text">
+                                    <div class="link-title">
+                                        ${item.title}
+                                        <span class="badge-tag ${item.badgeBg}">${item.badge}</span>
+                                    </div>
+                                    <div class="link-desc">${item.desc}</div>
+                                </div>
+                            </div>
+                            <div class="action-btns">
+                                <div class="btn-icon"><i class="fas fa-external-link-alt"></i></div>
+                            </div>
+                        </a>
+                    `;
+                    container.innerHTML += itemHtml;
+                });
             });
         }
 
-        document.getElementById('searchInput').addEventListener('input', function(e) {
-            let keyword = e.target.value.toLowerCase();
-            let cards = document.querySelectorAll('.link-card');
-            cards.forEach(card => {
-                let text = card.innerText.toLowerCase();
-                card.style.display = text.includes(keyword) ? 'flex' : 'none';
-            });
-        });
-
-        renderPage();
+        document.addEventListener('DOMContentLoaded', renderLinks);
     </script>
 </body>
 </html>
